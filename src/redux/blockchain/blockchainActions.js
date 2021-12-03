@@ -1,6 +1,6 @@
 // constants
 import Web3 from "web3";
-import SmartContract from "../../contracts/SmartContract.json";
+import DumbDonuts from "../../contracts/DumbDonuts.json";
 // log
 import { fetchData } from "../data/dataActions";
 
@@ -43,16 +43,17 @@ export const connect = () => {
         const networkId = await window.ethereum.request({
           method: "net_version",
         });
-        const NetworkData = await SmartContract.networks[networkId];
-        if (NetworkData) {
+        //const NetworkData = await DumbDonuts.networks[networkId];
+        if (networkId == 4) {
           const SmartContractObj = new web3.eth.Contract(
-            SmartContract.abi,
-            NetworkData.address
+            DumbDonuts.abi,
+            //NetworkData.address
+            "0x48d3f35228e2387dd97d07d7fb53f51d59c4d4ca"
           );
           dispatch(
             connectSuccess({
               account: accounts[0],
-              smartContract: SmartContractObj,
+              dumbDonuts: SmartContractObj,
               web3: web3,
             })
           );
@@ -65,7 +66,7 @@ export const connect = () => {
           });
           // Add listeners end
         } else {
-          dispatch(connectFailed("Change network to Polygon."));
+          dispatch(connectFailed("Connection error. Refresh or connect to Ethereum Mainnet and try again."));
         }
       } catch (err) {
         dispatch(connectFailed("Something went wrong."));

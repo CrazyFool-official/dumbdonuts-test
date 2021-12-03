@@ -27,12 +27,18 @@ export const fetchData = (account) => {
     try {
       let name = await store
         .getState()
-        .blockchain.smartContract.methods.name()
+        .blockchain.dumbDonuts.methods.name()
+        .call();
+
+      let totalSupply = await store
+        .getState()
+        .blockchain.dumbDonuts.methods.totalSupply()
         .call();
 
       dispatch(
         fetchDataSuccess({
           name,
+          totalSupply,
         })
       );
     } catch (err) {
