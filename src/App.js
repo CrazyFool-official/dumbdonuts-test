@@ -180,7 +180,9 @@ function App() {
                 View on OpenSea
                 </Button>
               </Anchor>}
+              <Text>hi</Text>
             </Div>
+            
           )
           }
         </Div>
